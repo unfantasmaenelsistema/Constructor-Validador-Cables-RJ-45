@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="1200" height="480">
+  <rect width="1200" height="480" fill="#f8fafc" rx="16" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="40" y="48" fill="#0f172a" font-family="system-ui, sans-serif" font-size="24" font-weight="bold">Comparativa Visual de Estándares ANSI/TIA/EIA-568A vs 568B</text>
+  <text x="40" y="76" fill="#475569" font-family="system-ui, sans-serif" font-size="14">Vista frontal del conector RJ-45 con la pestaña (clip) hacia abajo y los contactos dorados hacia arriba (Pin 1 a la izquierda)</text>
+
+  <!-- T568A Box -->
+  <rect x="40" y="100" width="540" height="340" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="40" y="100" width="540" height="46" rx="12" fill="#16a34a"/>
+  <text x="310" y="129" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">NORMA EIA/TIA-568A (Par Verde en Pines 1–2)</text>
+
+  <g font-family="monospace" font-size="14" transform="translate(65, 170)">
+    <text x="0" y="20" fill="#0f172a" font-weight="bold">Pin 1:</text><rect x="70" y="6" width="110" height="18" rx="3" fill="#16a34a"/><rect x="70" y="6" width="55" height="18" fill="#dcfce7"/><text x="195" y="20" fill="#1e293b">Blanco-Verde (TX+)</text>
+    <text x="0" y="52" fill="#0f172a" font-weight="bold">Pin 2:</text><rect x="70" y="38" width="110" height="18" rx="3" fill="#16a34a"/><text x="195" y="52" fill="#1e293b">Verde (TX-)</text>
+    <text x="0" y="84" fill="#0f172a" font-weight="bold">Pin 3:</text><rect x="70" y="70" width="110" height="18" rx="3" fill="#ea580c"/><rect x="70" y="70" width="55" height="18" fill="#ffedd5"/><text x="195" y="84" fill="#1e293b">Blanco-Naranja (RX+)</text>
+    <text x="0" y="116" fill="#0f172a" font-weight="bold">Pin 4:</text><rect x="70" y="102" width="110" height="18" rx="3" fill="#2563eb"/><text x="195" y="116" fill="#1e293b">Azul (BI_DC+ / PoE)</text>
+    <text x="0" y="148" fill="#0f172a" font-weight="bold">Pin 5:</text><rect x="70" y="134" width="110" height="18" rx="3" fill="#2563eb"/><rect x="70" y="134" width="55" height="18" fill="#dbeafe"/><text x="195" y="148" fill="#1e293b">Blanco-Azul (BI_DC- / PoE)</text>
+    <text x="0" y="180" fill="#0f172a" font-weight="bold">Pin 6:</text><rect x="70" y="166" width="110" height="18" rx="3" fill="#ea580c"/><text x="195" y="180" fill="#1e293b">Naranja (RX-)</text>
+    <text x="0" y="212" fill="#0f172a" font-weight="bold">Pin 7:</text><rect x="70" y="198" width="110" height="18" rx="3" fill="#78350f"/><rect x="70" y="198" width="55" height="18" fill="#fef3c7"/><text x="195" y="212" fill="#1e293b">Blanco-Marrón (BI_DD+)</text>
+    <text x="0" y="244" fill="#0f172a" font-weight="bold">Pin 8:</text><rect x="70" y="230" width="110" height="18" rx="3" fill="#78350f"/><text x="195" y="244" fill="#1e293b">Marrón (BI_DD-)</text>
+  </g>
+
+  <!-- T568B Box -->
+  <rect x="620" y="100" width="540" height="340" rx="12" fill="#ffffff" stroke="#94a3b8" stroke-width="1.5"/>
+  <rect x="620" y="100" width="540" height="46" rx="12" fill="#ea580c"/>
+  <text x="890" y="129" text-anchor="middle" fill="#ffffff" font-family="system-ui, sans-serif" font-size="18" font-weight="bold">NORMA EIA/TIA-568B (Par Naranja en Pines 1–2)</text>
+
+  <g font-family="monospace" font-size="14" transform="translate(645, 170)">
+    <text x="0" y="20" fill="#0f172a" font-weight="bold">Pin 1:</text><rect x="70" y="6" width="110" height="18" rx="3" fill="#ea580c"/><rect x="70" y="6" width="55" height="18" fill="#ffedd5"/><text x="195" y="20" fill="#1e293b">Blanco-Naranja (TX+)</text>
+    <text x="0" y="52" fill="#0f172a" font-weight="bold">Pin 2:</text><rect x="70" y="38" width="110" height="18" rx="3" fill="#ea580c"/><text x="195" y="52" fill="#1e293b">Naranja (TX-)</text>
+    <text x="0" y="84" fill="#0f172a" font-weight="bold">Pin 3:</text><rect x="70" y="70" width="110" height="18" rx="3" fill="#16a34a"/><rect x="70" y="70" width="55" height="18" fill="#dcfce7"/><text x="195" y="84" fill="#1e293b">Blanco-Verde (RX+)</text>
+    <text x="0" y="116" fill="#0f172a" font-weight="bold">Pin 4:</text><rect x="70" y="102" width="110" height="18" rx="3" fill="#2563eb"/><text x="195" y="116" fill="#1e293b">Azul (BI_DC+ / PoE)</text>
+    <text x="0" y="148" fill="#0f172a" font-weight="bold">Pin 5:</text><rect x="70" y="134" width="110" height="18" rx="3" fill="#2563eb"/><rect x="70" y="134" width="55" height="18" fill="#dbeafe"/><text x="195" y="148" fill="#1e293b">Blanco-Azul (BI_DC- / PoE)</text>
+    <text x="0" y="180" fill="#0f172a" font-weight="bold">Pin 6:</text><rect x="70" y="166" width="110" height="18" rx="3" fill="#16a34a"/><text x="195" y="180" fill="#1e293b">Verde (RX-)</text>
+    <text x="0" y="212" fill="#0f172a" font-weight="bold">Pin 7:</text><rect x="70" y="198" width="110" height="18" rx="3" fill="#78350f"/><rect x="70" y="198" width="55" height="18" fill="#fef3c7"/><text x="195" y="212" fill="#1e293b">Blanco-Marrón (BI_DD+)</text>
+    <text x="0" y="244" fill="#0f172a" font-weight="bold">Pin 8:</text><rect x="70" y="230" width="110" height="18" rx="3" fill="#78350f"/><text x="195" y="244" fill="#1e293b">Marrón (BI_DD-)</text>
+  </g>
+</svg>

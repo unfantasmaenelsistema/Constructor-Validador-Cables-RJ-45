@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" width="1200" height="500">
+  <rect width="1200" height="500" fill="#0f172a" rx="16" stroke="#334155" stroke-width="2"/>
+  <text x="40" y="46" fill="#fbbf24" font-family="monospace" font-size="20" font-weight="bold">MULTÍMETRO DIGITAL RJ-45 + REFLECTÓMETRO TDR &amp; CERTIFICADOR DE CABLEADO</text>
+  <text x="40" y="72" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="14">Medición óhmica de bucle por par con retardo real de estabilización, detector de cortocircuitos entre adyacentes y análisis NEXT/TDR</text>
+
+  <!-- Left Card: Multimeter LCD & Pair Loop Resistance -->
+  <rect x="40" y="96" width="545" height="368" rx="12" fill="#1e293b" stroke="#f59e0b" stroke-width="1.5"/>
+  <rect x="60" y="116" width="505" height="106" rx="8" fill="#450a0a" stroke="#ef4444" stroke-width="2"/>
+  <text x="76" y="140" fill="#fecaca" font-family="monospace" font-size="11">MODO: OHMIOS (Ω) + CONTINUIDAD SONORA · ESTABILIZACIÓN: 612 ms</text>
+  <text x="76" y="188" fill="#fef2f2" font-family="monospace" font-size="38" font-weight="bold">0.12 Ω · ¡CORTO!</text>
+  <text x="76" y="210" fill="#fca5a5" font-family="system-ui, sans-serif" font-size="12">Pines Adyacentes 1–2: ¡CORTOCIRCUITO DIRECTO detectado entre B-Naranja y Naranja!</text>
+
+  <!-- 4 Pair Cards -->
+  <g transform="translate(60, 240)" font-family="monospace">
+    <rect x="0" y="0" width="244" height="92" rx="8" fill="#0f172a" stroke="#ef4444"/>
+    <text x="14" y="24" fill="#f8fafc" font-size="13" font-weight="bold">Par 2 (Naranja) · P1–P2</text>
+    <text x="14" y="50" fill="#f87171" font-size="18" font-weight="bold">0.12 Ω (CORTO ⚡)</text>
+    <text x="14" y="74" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Puente en cabezal local A</text>
+
+    <rect x="260" y="0" width="244" height="92" rx="8" fill="#0f172a" stroke="#10b981"/>
+    <text x="274" y="24" fill="#f8fafc" font-size="13" font-weight="bold">Par 3 (Verde) · P3–P6</text>
+    <text x="274" y="50" fill="#34d399" font-size="18" font-weight="bold">2.61 Ω (NOMINAL)</text>
+    <text x="274" y="74" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Bucle cerrado OK (15m AWG24)</text>
+
+    <rect x="0" y="106" width="244" height="92" rx="8" fill="#0f172a" stroke="#f59e0b"/>
+    <text x="14" y="130" fill="#f8fafc" font-size="13" font-weight="bold">Par 1 (Azul) · P4–P5</text>
+    <text x="14" y="156" fill="#fbbf24" font-size="18" font-weight="bold">OL MΩ (ABIERTO ✂️)</text>
+    <text x="14" y="180" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Hilo Azul cortado a 9.2 m (TDR)</text>
+
+    <rect x="260" y="106" width="244" height="92" rx="8" fill="#0f172a" stroke="#10b981"/>
+    <text x="274" y="130" fill="#f8fafc" font-size="13" font-weight="bold">Par 4 (Marrón) · P7–P8</text>
+    <text x="274" y="156" fill="#34d399" font-size="18" font-weight="bold">2.53 Ω (NOMINAL)</text>
+    <text x="274" y="180" fill="#94a3b8" font-family="system-ui, sans-serif" font-size="11">Bucle cerrado OK (15m AWG24)</text>
+  </g>
+
+  <!-- Right Card: TDR & Certification Metrics -->
+  <rect x="615" y="96" width="545" height="368" rx="12" fill="#1e293b" stroke="#38bdf8" stroke-width="1.5"/>
+  <text x="638" y="128" fill="#38bdf8" font-family="monospace" font-size="14" font-weight="bold">CERTIFICADOR TIA-568 / ISO 11801 &amp; REFLECTÓMETRO TDR</text>
+
+  <g transform="translate(638, 148)" font-family="monospace">
+    <rect x="0" y="0" width="500" height="68" rx="8" fill="#0f172a" stroke="#334155"/>
+    <text x="16" y="24" fill="#94a3b8" font-size="11">LOCALIZACIÓN DE AVERÍA POR REBOTE DE PULSO (TDR · NVP 69%)</text>
+    <text x="16" y="48" fill="#f8fafc" font-size="14" font-weight="bold">Rotura en Hilo Azul localizada a 9.2 m del Conector A (Retardo: 89 ns)</text>
+
+    <rect x="0" y="82" width="242" height="86" rx="8" fill="#0f172a" stroke="#334155"/>
+    <text x="16" y="106" fill="#94a3b8" font-size="11">MARGEN DIAFONÍA (NEXT)</text>
+    <text x="16" y="136" fill="#34d399" font-size="22" font-weight="bold">44.8 dB · PASA</text>
+    <text x="16" y="156" fill="#cbd5e1" font-size="11">Pares trenzados balanceados</text>
+
+    <rect x="258" y="82" width="242" height="86" rx="8" fill="#0f172a" stroke="#334155"/>
+    <text x="274" y="106" fill="#94a3b8" font-size="11">PÉRDIDA INSERCIÓN (ATENUACIÓN)</text>
+    <text x="274" y="136" fill="#38bdf8" font-size="22" font-weight="bold">3.1 dB @ 250MHz</text>
+    <text x="274" y="156" fill="#cbd5e1" font-size="11">Límite Cat 6: &lt; 19.8 dB</text>
+
+    <rect x="0" y="182" width="500" height="110" rx="8" fill="#0f172a" stroke="#334155"/>
+    <text x="16" y="206" fill="#f8fafc" font-size="13" font-weight="bold">Guía Interactiva de Taller (5 Fases de Crimpado Profesional + Informe PDF)</text>
+    <text x="16" y="232" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">1. Pelado de camisa UTP (2.5 cm) · 2. Destrenzado (&lt; 13 mm) · 3. Peinado 568A/B</text>
+    <text x="16" y="254" fill="#cbd5e1" font-family="system-ui, sans-serif" font-size="12">4. Corte recto a 12 mm (prensaestopas sobre funda) · 5. Crimpado y Certificación</text>
+    <rect x="16" y="266" width="220" height="18" rx="4" fill="#0284c7"/>
+    <text x="126" y="279" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="bold">EXPORTAR INFORME DE PRÁCTICA</text>
+  </g>
+</svg>
