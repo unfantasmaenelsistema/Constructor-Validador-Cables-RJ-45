@@ -36,7 +36,13 @@ const INITIAL_FAULTS: Record<WireId, WireFault> = {
 
 export default function App() {
   // Theme state (Light bench by default, toggleable to Dark lab)
-  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const [darkMode, setDarkMode] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('rj45_theme') === 'dark';
+    } catch {
+      return false;
+    }
+  });
 
   // Connector A & B slots
   const [slotsA, setSlotsA] = useState<(WireId | null)[]>([...STANDARD_T568B]);
@@ -69,7 +75,23 @@ export default function App() {
 
   // Challenges state
   const [activeChallengeId, setActiveChallengeId] = useState<string | null>(null);
-  const [completedChallenges, setCompletedChallenges] = useState<string[]>([]);
+  const [completedChallenges, setCompletedChallenges] = useState<string[]>(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem('rj45_completed') || '[]');
+      return Array.isArray(saved) ? saved.filter((id) => CHALLENGES.some((c) => c.id === id)) : [];
+    } catch {
+      return [];
+    }
+  });
+  const inChallenge = activeChallengeId !== null;
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('rj45_completed', JSON.stringify(completedChallenges));
+    } catch {
+      /* sin almacenamiento: el progreso dura la visita */
+    }
+  }, [completedChallenges]);
 
   useEffect(() => {
     const root = document.documentElement;
@@ -77,6 +99,11 @@ export default function App() {
       root.classList.add('dark');
     } else {
       root.classList.remove('dark');
+    }
+    try {
+      localStorage.setItem('rj45_theme', darkMode ? 'dark' : 'light');
+    } catch {
+      /* sin almacenamiento */
     }
   }, [darkMode]);
 
@@ -154,6 +181,7 @@ export default function App() {
   };
 
   const handleRepairAllWires = () => {
+    if (activeChallengeId) return; // en un reto se repara avería a avería
     setWireFaults({ ...INITIAL_FAULTS });
     setAdjacentShorts([]);
     soundFX.playWireSnap();
@@ -167,6 +195,7 @@ export default function App() {
       | 'CROSSOVER_GIGABIT'
       | 'SPLIT_PAIR_DEMO'
   ) => {
+    if (activeChallengeId) return; // las plantillas resolverían el reto sin cablear
     setWireFaults({ ...INITIAL_FAULTS });
     setAdjacentShorts([]);
     if (type === 'DIRECT_568B') {
@@ -245,7 +274,7 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
       {/* Top Bar Contract: 3 zones separated by gap-8 */}
-      <header className="sticky top-0 z-30 flex items-center justify-between gap-8 px-6 py-3.5 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xs border-b border-slate-200 dark:border-slate-800">
+      <header className="sticky top-0 z-30 flex items-center justify-between gap-3 xl:gap-8 px-4 sm:px-6 py-3.5 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xs border-b border-slate-200 dark:border-slate-800">
         {/* Zone 1: Brand lockup with user's custom logo on one line */}
         <a
           href="https://www.unfantasmaenelsistema.com/"
@@ -256,14 +285,14 @@ export default function App() {
           <img
             src="./assets/aistudio/icono_81a3db5b.png"
             alt="Logo Un Fantasma en el Sistema"
-            referrerPolicy="no-referrer"
             className="w-8 h-8 object-contain shrink-0"
           />
-          <span>Un Fantasma en el Sistema</span>
+          <span className="hidden sm:inline">Un Fantasma en el Sistema</span>
+          <span className="sm:hidden">Cables RJ-45</span>
         </a>
 
         {/* Zone 2: 4 clean single-line navigation links */}
-        <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
+        <nav className="hidden xl:flex items-center gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
           <a
             href="#mesa-trabajo"
             className="hover:text-slate-900 dark:hover:text-white hover:underline underline-offset-4 transition-colors whitespace-nowrap shrink-0"
@@ -296,7 +325,7 @@ export default function App() {
             href="https://www.unfantasmaenelsistema.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 dark:bg-sky-600 dark:hover:bg-sky-500 rounded-lg transition-colors whitespace-nowrap shrink-0"
+            className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 dark:bg-sky-600 dark:hover:bg-sky-500 rounded-lg transition-colors whitespace-nowrap shrink-0"
           >
             <span>Web Oficial</span>
             <ExternalLink className="w-3.5 h-3.5" />
@@ -326,14 +355,18 @@ export default function App() {
             <button
               type="button"
               onClick={() => handleApplyPresetCable('DIRECT_568B')}
-              className="px-3 py-2 text-xs font-medium rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+              disabled={inChallenge}
+              title={inChallenge ? 'Desactivado durante un reto' : undefined}
+              className="disabled:opacity-40 disabled:cursor-not-allowed px-3 py-2 text-xs font-medium rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
             >
               Ejemplo Directo 568B
             </button>
             <button
               type="button"
               onClick={() => handleApplyPresetCable('CROSSOVER_FAST')}
-              className="px-3 py-2 text-xs font-medium rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
+              disabled={inChallenge}
+              title={inChallenge ? 'Desactivado durante un reto' : undefined}
+              className="disabled:opacity-40 disabled:cursor-not-allowed px-3 py-2 text-xs font-medium rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
             >
               Ejemplo Cruzado (A↔B)
             </button>
@@ -430,6 +463,7 @@ export default function App() {
               activePulsePin={activePulsePinA}
               wireFaults={wireFaults}
               onUpdateSlots={handleUpdateSlotsA}
+              templatesLocked={inChallenge}
               onToggleCrimp={handleToggleCrimpA}
             />
 
@@ -443,6 +477,7 @@ export default function App() {
               onToggleWireFault={handleToggleWireFault}
               onToggleAdjacentShort={handleToggleAdjacentShort}
               onRepairAllWires={handleRepairAllWires}
+              repairAllLocked={inChallenge}
             />
 
             <RJ45ConnectorCard
@@ -456,6 +491,7 @@ export default function App() {
               activePulsePin={activePulsePinB}
               wireFaults={wireFaults}
               onUpdateSlots={handleUpdateSlotsB}
+              templatesLocked={inChallenge}
               onToggleCrimp={handleToggleCrimpB}
             />
           </div>
@@ -500,7 +536,6 @@ export default function App() {
             <img
               src="./assets/aistudio/icono_81a3db5b.png"
               alt="Logo Un Fantasma en el Sistema"
-              referrerPolicy="no-referrer"
               className="w-10 h-10 object-contain transition-transform group-hover:scale-105"
             />
             <div>

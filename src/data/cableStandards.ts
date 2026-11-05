@@ -599,7 +599,7 @@ export function analyzeCableConfiguration(
     summary =
       'Continuidad 1 a 1 perfecta bajo norma T568A, habitual en instalaciones institucionales y residenciales.';
     useCase =
-      'Conecta equipos de distinta capa (PC a Switch, Router a Switch, Roseta mural a Panel de Parcheo 568A).';
+      'Conecta puertos de distinto tipo (MDI ↔ MDI-X): PC a Switch, Router a Switch o roseta mural a panel de parcheo 568A.';
   } else if (
     (detA.standard === 'T568A' && detB.standard === 'T568B') ||
     (detA.standard === 'T568B' && detB.standard === 'T568A')
@@ -798,7 +798,7 @@ export const CHALLENGES: ChallengeItem[] = [
     title: 'Instalación Normativa Residencial (Directo T568A)',
     difficulty: 'Básico',
     scenario:
-      'Estás certificando una red en un edificio público donde todo el panel de parcheo está terminado bajo la norma EIA/TIA-568A.',
+      'Estás ampliando la red de un edificio público donde todo el panel de parcheo está terminado bajo la norma EIA/TIA-568A.',
     objective:
       'Construye y crimpa un cable directo íntegro empleando la norma EIA/TIA-568A en ambos extremos.',
     hint: 'En T568A el par Verde inicia en los pines 1 y 2 (Blanco-Verde, Verde) y el par Naranja ocupa los pines 3 y 6 (Blanco-Naranja en el 3, Naranja en el 6).',

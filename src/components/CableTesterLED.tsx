@@ -182,7 +182,7 @@ export const CableTesterLED: React.FC<CableTesterLEDProps> = ({
         </div>
 
         {/* Segmented Control: Switch between LED Tester and Multimeter */}
-        <div className="mt-3 flex items-center gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
+        <div className="mt-3 flex flex-wrap items-center gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-lg">
           <button
             type="button"
             onClick={() => {
@@ -476,7 +476,7 @@ export const CableTesterLED: React.FC<CableTesterLEDProps> = ({
             <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
               <span>Diagnóstico Automático EIA/TIA</span>
               <span aria-hidden="true">·</span>
-              <span>Certificación Lógica y Física</span>
+              <span>Verificación de mapa de cableado</span>
             </div>
             <h3 className="text-base font-bold text-slate-900 dark:text-slate-100 mt-0.5">
               {analysis.title}

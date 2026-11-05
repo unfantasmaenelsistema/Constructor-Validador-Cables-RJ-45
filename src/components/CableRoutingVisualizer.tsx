@@ -13,6 +13,8 @@ interface CableRoutingVisualizerProps {
   onToggleWireFault: (wireId: WireId) => void;
   onToggleAdjacentShort: (pinLeft: number) => void;
   onRepairAllWires: () => void;
+  /** Durante un reto hay que localizar y reparar cada avería. */
+  repairAllLocked?: boolean;
 }
 
 export const CableRoutingVisualizer: React.FC<CableRoutingVisualizerProps> = ({
@@ -25,6 +27,7 @@ export const CableRoutingVisualizer: React.FC<CableRoutingVisualizerProps> = ({
   onToggleWireFault,
   onToggleAdjacentShort,
   onRepairAllWires,
+  repairAllLocked = false,
 }) => {
   const cutCount = ALL_WIRE_IDS.filter((id) => wireFaults[id] === 'cut').length;
   const totalFaults = cutCount + adjacentShorts.length;
@@ -46,7 +49,12 @@ export const CableRoutingVisualizer: React.FC<CableRoutingVisualizerProps> = ({
           </h3>
         </div>
 
-        {totalFaults > 0 && (
+        {totalFaults > 0 && repairAllLocked && (
+          <span className="text-[11px] text-amber-700 dark:text-amber-300">
+            Reto en curso: localiza cada avería con el multímetro y repárala hilo a hilo.
+          </span>
+        )}
+        {totalFaults > 0 && !repairAllLocked && (
           <button
             type="button"
             onClick={onRepairAllWires}

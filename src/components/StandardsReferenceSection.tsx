@@ -109,7 +109,7 @@ export const StandardsReferenceSection: React.FC<StandardsReferenceSectionProps>
 
     return [
       '====================================================================',
-      'INFORME TÉCNICO DE CERTIFICACIÓN DE CABLEADO ESTRUCTURADO RJ-45',
+      'INFORME DE VERIFICACIÓN DE CABLE RJ-45 (MAPA DE CABLEADO Y CONTINUIDAD)',
       'Laboratorio Didáctico — Un Fantasma en el Sistema',
       'https://www.unfantasmaenelsistema.com/',
       '====================================================================',
@@ -117,7 +117,7 @@ export const StandardsReferenceSection: React.FC<StandardsReferenceSectionProps>
       `Técnico / Alumno   : ${studentName.trim() || 'No especificado'}`,
       `Grupo / Módulo     : ${studentGroup.trim() || 'Taller de Redes'}`,
       '--------------------------------------------------------------------',
-      `Resultado Global   : ${isCertifiedPass ? 'APTO / CERTIFICADO (PASA)' : 'NO APTO (FALLO)'}`,
+      `Resultado Global   : ${isCertifiedPass ? 'APTO (PASA)' : 'NO APTO (FALLO)'}`,
       `Clasificación      : ${analysis.title}`,
       `Norma Conector A   : ${analysis.endALabel} (${analysis.isCrimpedA ? 'Crimpado' : 'Sin crimpar'})`,
       `Norma Conector B   : ${analysis.endBLabel} (${analysis.isCrimpedB ? 'Crimpado' : 'Sin crimpar'})`,
@@ -128,6 +128,10 @@ export const StandardsReferenceSection: React.FC<StandardsReferenceSectionProps>
       '--------------------------------------------------------------------',
       'MAPA DE CONTINUIDAD PIN A PIN (MASTER -> REMOTE):',
       pinLines,
+      '--------------------------------------------------------------------',
+      'Nota: es una verificación del mapa de cableado y la continuidad. No sustituye',
+      'a la certificación con un certificador de cable (NEXT, pérdida de inserción,',
+      'retardo… según TIA-568.2-D / ISO 11801).',
       '====================================================================',
     ].join('\n');
   };
@@ -138,7 +142,7 @@ export const StandardsReferenceSection: React.FC<StandardsReferenceSectionProps>
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `certificacion-rj45-${analysis.cableCategory.toLowerCase()}.txt`;
+    a.download = `verificacion-rj45-${analysis.cableCategory.toLowerCase()}.txt`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -146,10 +150,13 @@ export const StandardsReferenceSection: React.FC<StandardsReferenceSectionProps>
   };
 
   const handleCopyReport = () => {
-    navigator.clipboard.writeText(generateReportText()).then(() => {
-      setReportCopied(true);
-      setTimeout(() => setReportCopied(false), 2500);
-    });
+    navigator.clipboard
+      .writeText(generateReportText())
+      .then(() => {
+        setReportCopied(true);
+        setTimeout(() => setReportCopied(false), 2500);
+      })
+      .catch(() => undefined);
   };
 
   return (
@@ -172,33 +179,43 @@ export const StandardsReferenceSection: React.FC<StandardsReferenceSectionProps>
 
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-xs text-slate-500 dark:text-slate-400 mr-1">
-              Cargar plantilla rápida en mesa:
+              {activeChallengeId !== null
+                ? 'Plantillas desactivadas mientras haya un reto activo:'
+                : 'Cargar plantilla rápida en mesa:'}
             </span>
             <button
               type="button"
               onClick={() => onApplyPresetCable('DIRECT_568B')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer whitespace-nowrap shrink-0"
+              disabled={activeChallengeId !== null}
+              title={activeChallengeId !== null ? 'Plantillas desactivadas durante un reto: coloca los hilos uno a uno' : undefined}
+              className="disabled:opacity-40 disabled:cursor-not-allowed px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer whitespace-nowrap shrink-0"
             >
               Directo 568B
             </button>
             <button
               type="button"
               onClick={() => onApplyPresetCable('DIRECT_568A')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer whitespace-nowrap shrink-0"
+              disabled={activeChallengeId !== null}
+              title={activeChallengeId !== null ? 'Plantillas desactivadas durante un reto: coloca los hilos uno a uno' : undefined}
+              className="disabled:opacity-40 disabled:cursor-not-allowed px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer whitespace-nowrap shrink-0"
             >
               Directo 568A
             </button>
             <button
               type="button"
               onClick={() => onApplyPresetCable('CROSSOVER_FAST')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer whitespace-nowrap shrink-0"
+              disabled={activeChallengeId !== null}
+              title={activeChallengeId !== null ? 'Plantillas desactivadas durante un reto: coloca los hilos uno a uno' : undefined}
+              className="disabled:opacity-40 disabled:cursor-not-allowed px-3 py-1.5 rounded-lg text-xs font-medium bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 transition-colors cursor-pointer whitespace-nowrap shrink-0"
             >
               Cruzado (568A↔568B)
             </button>
             <button
               type="button"
               onClick={() => onApplyPresetCable('SPLIT_PAIR_DEMO')}
-              className="px-3 py-1.5 rounded-lg text-xs font-medium bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/60 text-amber-900 dark:text-amber-200 transition-colors cursor-pointer whitespace-nowrap shrink-0"
+              disabled={activeChallengeId !== null}
+              title={activeChallengeId !== null ? 'Plantillas desactivadas durante un reto: coloca los hilos uno a uno' : undefined}
+              className="disabled:opacity-40 disabled:cursor-not-allowed px-3 py-1.5 rounded-lg text-xs font-medium bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 hover:bg-amber-100 dark:hover:bg-amber-900/60 text-amber-900 dark:text-amber-200 transition-colors cursor-pointer whitespace-nowrap shrink-0"
             >
               Demo Error Split-Pair
             </button>
@@ -337,7 +354,7 @@ export const StandardsReferenceSection: React.FC<StandardsReferenceSectionProps>
             {CRIMP_WORKSHOP_STEPS[activeCrimpStep].detail}
           </p>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
-            <strong className="text-slate-800 dark:text-slate-200">Consejo de certificación:</strong>{' '}
+            <strong className="text-slate-800 dark:text-slate-200">Consejo de taller:</strong>{' '}
             {CRIMP_WORKSHOP_STEPS[activeCrimpStep].tip}
           </p>
         </div>
@@ -463,7 +480,7 @@ export const StandardsReferenceSection: React.FC<StandardsReferenceSectionProps>
               ¿Cuándo usar Cable Directo vs Cruzado?
             </h3>
             <p className="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
-              El <strong>Cable Directo</strong> (568B–568B o 568A–568A) une equipos de distinta capa
+              El <strong>Cable Directo</strong> (568B–568B o 568A–568A) une puertos de distinto tipo (MDI ↔ MDI-X)
               (PC a Switch, Router a Switch). El <strong>Cable Cruzado</strong> (568A–568B) une
               equipos iguales (PC a PC, Switch a Switch, Router a Router) cuando no disponen de
               detección automática <em>Auto-MDI/MDIX</em>.
@@ -479,10 +496,10 @@ export const StandardsReferenceSection: React.FC<StandardsReferenceSectionProps>
             <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
               <span>Documentación para Entrega de Prácticas</span>
               <span aria-hidden="true">·</span>
-              <span>Hoja de Certificación de Cableado</span>
+              <span>Hoja de Verificación de Cableado</span>
             </div>
             <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100 mt-1">
-              04. Exportar Informe Técnico de Certificación
+              04. Exportar Informe de Verificación
             </h2>
           </div>
 
