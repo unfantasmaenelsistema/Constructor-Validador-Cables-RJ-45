@@ -1,6 +1,5 @@
 {
   "name": "Constructor y Validador de Cables RJ-45 (EIA/TIA 568A/568B)",
   "description": "Simulador interactivo y laboratorio didáctico de cableado estructurado RJ-45 para construir, crimpar y comprobar cables de red directos y cruzados bajo normas EIA/TIA 568A y 568B.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+  "requestFramePermissions": []
 }

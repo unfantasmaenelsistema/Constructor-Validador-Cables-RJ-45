@@ -35,6 +35,8 @@ interface RJ45ConnectorCardProps {
   wireFaults: Record<WireId, WireFault>;
   onUpdateSlots: (newSlots: (WireId | null)[]) => void;
   onToggleCrimp: () => void;
+  /** Durante un reto no se pueden cargar órdenes completos con un clic. */
+  templatesLocked?: boolean;
 }
 
 export const RJ45ConnectorCard: React.FC<RJ45ConnectorCardProps> = ({
@@ -49,6 +51,7 @@ export const RJ45ConnectorCard: React.FC<RJ45ConnectorCardProps> = ({
   wireFaults,
   onUpdateSlots,
   onToggleCrimp,
+  templatesLocked = false,
 }) => {
   const [selectedWire, setSelectedWire] = useState<WireId | null>(null);
   const [selectedSlotIndex, setSelectedSlotIndex] = useState<number | null>(null);
@@ -224,7 +227,8 @@ export const RJ45ConnectorCard: React.FC<RJ45ConnectorCardProps> = ({
         <div className="flex flex-wrap items-center gap-1.5">
           <button
             type="button"
-            disabled={isCrimped}
+            disabled={isCrimped || templatesLocked}
+            title={templatesLocked ? 'Plantillas desactivadas durante un reto: coloca los hilos uno a uno' : undefined}
             onClick={() => onUpdateSlots([...STANDARD_T568B])}
             className="px-2.5 py-1.5 text-xs font-medium rounded-md bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 disabled:opacity-40 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
           >
@@ -232,7 +236,8 @@ export const RJ45ConnectorCard: React.FC<RJ45ConnectorCardProps> = ({
           </button>
           <button
             type="button"
-            disabled={isCrimped}
+            disabled={isCrimped || templatesLocked}
+            title={templatesLocked ? 'Plantillas desactivadas durante un reto: coloca los hilos uno a uno' : undefined}
             onClick={() => onUpdateSlots([...STANDARD_T568A])}
             className="px-2.5 py-1.5 text-xs font-medium rounded-md bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 disabled:opacity-40 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
           >
@@ -242,7 +247,7 @@ export const RJ45ConnectorCard: React.FC<RJ45ConnectorCardProps> = ({
             <>
               <button
                 type="button"
-                disabled={isCrimped}
+                disabled={isCrimped || templatesLocked}
                 onClick={() => onUpdateSlots([...STANDARD_GIGABIT_CROSS_B])}
                 className="px-2.5 py-1.5 text-xs font-medium rounded-md bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 disabled:opacity-40 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                 title="Cruza los 4 pares respecto a T568B (Gigabit Crossover)"
@@ -251,7 +256,7 @@ export const RJ45ConnectorCard: React.FC<RJ45ConnectorCardProps> = ({
               </button>
               <button
                 type="button"
-                disabled={isCrimped}
+                disabled={isCrimped || templatesLocked}
                 onClick={() => onUpdateSlots([...STANDARD_ROLLOVER_B])}
                 className="px-2.5 py-1.5 text-xs font-medium rounded-md bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 disabled:opacity-40 transition-colors whitespace-nowrap shrink-0 cursor-pointer"
                 title="Orden inverso 8 a 1 respecto a T568B (Cable Consola)"
@@ -347,6 +352,17 @@ export const RJ45ConnectorCard: React.FC<RJ45ConnectorCardProps> = ({
                   onDragLeave={() => setDragOverSlot(null)}
                   onDrop={(e) => handleDropOnSlot(e, idx)}
                   onClick={() => handleSlotClick(idx)}
+                  role="button"
+                  tabIndex={isCrimped ? -1 : 0}
+                  aria-disabled={isCrimped}
+                  aria-pressed={isSelectedSlot}
+                  aria-label={`Conector ${side}, pin ${pinNumber}: ${wireId ? WIRES[wireId].name : 'vacío'}`}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      handleSlotClick(idx);
+                    }
+                  }}
                   className={`group relative flex flex-col items-center rounded-lg border p-1.5 transition-all select-none ${
                     isCrimped ? 'cursor-default' : 'cursor-pointer'
                   } ${
@@ -502,6 +518,8 @@ export const RJ45ConnectorCard: React.FC<RJ45ConnectorCardProps> = ({
                     type="button"
                     draggable
                     onDragStart={(e) => handleDragStartWire(e, wireId)}
+                    aria-pressed={isSelected}
+                    aria-label={`Hilo ${wire.name} (conector ${side})`}
                     onClick={() => {
                       setSelectedSlotIndex(null);
                       setSelectedWire(isSelected ? null : wireId);

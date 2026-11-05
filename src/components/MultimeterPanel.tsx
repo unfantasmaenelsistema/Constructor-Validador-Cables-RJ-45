@@ -646,6 +646,9 @@ export const MultimeterPanel: React.FC<MultimeterPanelProps> = ({
             </div>
           </div>
         </div>
+        <p className="mt-2 text-[10px] text-slate-500">
+          NEXT y atenuación son valores orientativos a 100 MHz simulados: un multímetro no los mide; hace falta un certificador de cable.
+        </p>
 
         {/* If a wire is cut, let user move where the cut is along the cable to see TDR change */}
         {analysis.cutWires.length > 0 && (

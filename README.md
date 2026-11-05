@@ -1,116 +1,114 @@
-<div align="center">
-  <a href="https://www.unfantasmaenelsistema.com/" target="_blank">
-    <img src="./public/assets/aistudio/icono_81a3db5b.png" alt="Logo Un Fantasma en el Sistema" width="110" />
-  </a>
+<p align="center">
+  <a href="https://www.unfantasmaenelsistema.com"><img src="public/assets/aistudio/icono_81a3db5b.png" width="110" alt="Un fantasma en el sistema"></a>
+</p>
 
-  # Constructor y Validador de Cables de Red RJ-45 (EIA/TIA 568A / 568B)
+<h1 align="center">Constructor y Validador de Cables RJ-45</h1>
 
-  **Simulador interactivo de cableado estructurado UTP/STP, Comprobador Secuencial LED y Multímetro Digital (Ω / TDR / NEXT)**
+<p align="center">
+  <b>Monta latiguillos UTP hilo a hilo, crímpalos y compruébalos con un tester LED y un multímetro</b><br>
+  Normas TIA/EIA-568A y 568B · Directo, cruzado, cruzado Gigabit y consola · Hilos cortados, cortocircuitos y par dividido · 5 retos de taller
+</p>
 
-  Creado por **[Un Fantasma en el Sistema](https://www.unfantasmaenelsistema.com/)** · Listo para desplegar en **GitHub Pages**
-</div>
+<p align="center">
+  <a href="https://unfantasmaenelsistema.github.io/Constructor-Validador-Cables-RJ-45/"><b>▶ Abrir el constructor</b></a> ·
+  <a href="#qué-hace">Qué hace</a> ·
+  <a href="#los-5-retos">Los 5 retos</a> ·
+  <a href="#qué-se-aprende">Qué se aprende</a> ·
+  <a href="#desarrollo">Desarrollo</a> ·
+  <a href="https://www.unfantasmaenelsistema.com">unfantasmaenelsistema.com</a> ·
+  <a href="LICENSE">MIT</a>
+</p>
 
----
+<p align="center">
+  <img src="https://img.shields.io/badge/navegador-sin_servidor-10b981?style=flat-square" alt="Sin servidor">
+  <img src="https://img.shields.io/badge/datos-100%25_locales-0284c7?style=flat-square" alt="Datos 100 % locales">
+  <img src="https://img.shields.io/badge/retos-5-f59e0b?style=flat-square" alt="5 retos">
+  <img src="https://img.shields.io/badge/licencia-MIT-blue?style=flat-square" alt="MIT">
+</p>
 
-## 📸 Capturas de Pantalla de la Aplicación
+<p align="center">
+  <img src="docs/capturas/01-mesa-de-trabajo.webp" width="900" alt="Mesa de trabajo con un cable cruzado: conector 1 en T568A, conector 2 en T568B, el mapa de trazado interno con los pares naranja y verde cruzados, el tester LED y el diagnóstico con la tabla pin a pin">
+</p>
 
-### 1. Mesa de Trabajo Interactiva RJ-45 y Comprobador Secuencial LED (Master / Remote)
-![Vista general del Constructor y Comprobador RJ-45](./public/assets/screenshots/vista-general-simulador.svg)
+Un taller de crimpado sin gastar conectores: se colocan los 8 hilos en cada RJ-45 (con clic, arrastrando o con el teclado), se crimpa y se prueba el cable como en el aula. La app reconoce la norma de cada extremo y el tipo de cable, y explica si funcionará a 100 Mbps, a 1 Gbps y con PoE. También se pueden cortar hilos o provocar cortocircuitos para practicar la localización de averías con el multímetro.
 
-### 2. Multímetro Digital (True RMS / Ω), Detector de Cortocircuitos Adyacentes y Reflectómetro TDR
-![Vista del Multímetro Digital y Analizador TDR](./public/assets/screenshots/vista-multimetro-tdr.svg)
+> [!NOTE]
+> Todo funciona en el navegador, sin servidor. Los retos superados y el tema se guardan solo en el `localStorage` de ese navegador.
 
-### 3. Esquema Técnico Comparativo de Normas EIA/TIA-568A y EIA/TIA-568B
-![Comparativa visual EIA/TIA 568A vs 568B](./public/assets/screenshots/esquema-568a-568b.svg)
+## Qué hace
 
----
+- **Dos conectores RJ-45** con vista frontal (contactos arriba, pestaña abajo, pin 1 a la izquierda), bandeja de hilos, chuleta superpuesta de T568A o T568B y crimpado: una vez crimpado, para cambiar un hilo hay que «abrir» el conector.
+- **Detección automática** de la norma de cada extremo y del tipo de cable: directo T568A o T568B, cruzado 568A↔568B, cruzado Gigabit de 4 pares (1↔3, 2↔6, 4↔7, 5↔8), consola o *rollover* (1↔8…8↔1) y **par dividido** (*split pair*).
+- **Compatibilidad del enlace**: 100BASE-TX (pines 1-2 y 3-6), 1000BASE-T (los 4 pares) y PoE en modo A y B, con el motivo de cada fallo (por ejemplo, un hilo marrón cortado deja el Gigabit en 100 Mbps).
+- **Tester LED** secuencial (rápido, lento o paso a paso), con prueba de blindaje para cable STP/FTP.
+- **Multímetro**: resistencia de bucle de cada par con tapón *loopback* en el extremo B, detector de cortocircuitos entre pines vecinos, puntas de prueba manuales y reflectómetro TDR para situar un corte. La diafonía (NEXT) y la atenuación se muestran como valores orientativos simulados.
+- **Averías**: cortar o reparar cualquier hilo y puentear o aislar dos pines contiguos.
+- **Referencia**: guía paso a paso del crimpado, tabla de pines T568A/T568B con señales de Fast Ethernet, Gigabit y PoE, y cuándo usar cable directo o cruzado.
+- **Informe de verificación** descargable con el mapa de cableado pin a pin y el estado del enlace.
 
-## 🎯 ¿Qué hace esta aplicación?
+<p align="center">
+  <img src="docs/capturas/02-multimetro.webp" width="900" alt="Multímetro con un cable T568B que tiene el hilo marrón cortado y un cortocircuito entre los pines 3 y 4: resistencia de bucle por par, derivaciones detectadas, par 4 abierto a 9,3 m y el detector de cortos">
+</p>
 
-Esta herramienta web educativa e interactiva simula un **laboratorio real de cableado estructurado y certificación de redes locales**. Permite a estudiantes, docentes de informática/telecomunicaciones (SMR, ASIR, DAW, Ingeniería) y técnicos practicar la construcción, el crimpado y el diagnóstico de latiguillos **RJ-45 (8P8C)** sin gastar material fungible.
+## Los 5 retos
 
-### Características Principales
+| # | Reto | Nivel | Qué hay que conseguir |
+| :-: | :-- | :-: | :-- |
+| 01 | Latiguillo estándar de oficina | Básico | Cable directo T568B en los dos extremos, crimpado. |
+| 02 | Instalación normativa | Básico | Cable directo T568A en los dos extremos, crimpado. |
+| 03 | Enlace entre equipos iguales | Intermedio | Cable cruzado: T568A en un extremo y T568B en el otro. |
+| 04 | Diagnóstico con multímetro | Intermedio | Encontrar y reparar un cortocircuito, un hilo cortado y los pines 7-8 invertidos. |
+| 05 | Cable de consola | Avanzado | *Rollover*: el conector 2 en orden inverso al conector 1. |
 
-1. **Constructor Visual de Cabezales RJ-45 (Arrastrar y Soltar / Clic para Intercambiar)**:
-   - Ordena los 8 hilos de los 4 pares trenzados (`Blanco-Naranja`, `Naranja`, `Blanco-Verde`, `Azul`, `Blanco-Azul`, `Verde`, `Blanco-Marrón`, `Marrón`) en ambos extremos del cable (**Conector 1 Local** y **Conector 2 Remoto**).
-   - **Acción mecánica de Crimpado**: bloquea el prensaestopas y hunde las cuchillas doradas sobre el aislante con retroalimentación visual y sonora sintetizada mediante *Web Audio API*.
-   - **Chuleta visual opcional**: muestra u oculta en cada pin el color correspondiente de la norma **T568A** o **T568B**.
+Mientras hay un reto en curso, las plantillas («Cargar T568B», «Ejemplo directo», etc.) y el botón de reparar todas las averías se desactivan: el cable se monta hilo a hilo y cada avería se localiza y se repara por separado. El reto se da por superado cuando el cable cumple el objetivo y está crimpado en los dos extremos.
 
-2. **Simulador Físico de Averías (Roturas ✂️ y Cortocircuitos ⚡)**:
-   - **Corte de Hilos Individuales**: permite cortar o reparar cualquiera de los 8 conductores en el tramo del cable para observar cómo responde el comprobador LED y cómo mide circuito abierto (`OL MΩ`) el multímetro.
-   - **Inyector de Cortocircuitos entre Pines Adyacentes (`P1–P2` a `P7–P8`)**: permite puentear eléctricamente pines contiguos (simulando cuchillas dobladas o hilos pelados tocándose dentro del cabezal).
+<p align="center">
+  <img src="docs/capturas/04-retos.webp" width="900" alt="Los cinco retos, con el 01 en curso y las plantillas rápidas desactivadas">
+</p>
 
-3. **Comprobador de Cable de Red con LEDs (Master + Remote)**:
-   - Barrido secuencial de los pines `1` al `8` más el hilo de drenaje/blindaje `G` (para cables **STP/FTP**).
-   - Modos de operación: **Auto Rápido**, **Modo Lento**, **Paso a Paso Manual** e inyección directa haciendo clic en cualquier fila LED.
-   - Si dos pines adyacentes están en cortocircuito, ambos LEDs se iluminan simultáneamente en rojo (`⚡ CORTO`), replicando el comportamiento real de un comprobador físico.
+## Qué se aprende
 
-4. **Multímetro Digital RJ-45 (Ω / Continuidad) + Reflectómetro TDR**:
-   - **Retardo aleatorio realista de estabilización (`340 ms – 850 ms`)**: simula el auto-rango y la carga capacitiva del par antes de fijar la lectura en ohmios ($\Omega$).
-   - **Resistencia de bucle por par trenzado**: calcula la resistencia DC real según la longitud seleccionada (`2 m` a `90 m`) y la categoría (`Cat 5e`, `Cat 6`, `Cat 6A`).
-   - **Detector de cortocircuitos entre hilos adyacentes**: mide el aislamiento entre pines vecinos (`> 500 MΩ` en estado sano frente a `0.08 Ω – 0.22 Ω` con alarma sonora cuando existe un puente eléctrico).
-   - **Reflectómetro de Dominio de Tiempo (TDR) y Diafonía (NEXT)**: calcula la distancia en metros y nanosegundos hasta el corte o cortocircuito ($NVP = 69\%$) y alerta sobre el **error de Par Dividido (*Split Pair*)** cuando los pines 3 y 6 no utilizan el mismo par físico.
+- **T568B**: blanco-naranja, naranja, blanco-verde, azul, blanco-azul, verde, blanco-marrón, marrón. **T568A** intercambia el par naranja y el verde.
+- Un **cable directo** une puertos de distinto tipo (MDI con MDI-X: PC a switch, router a switch); el **cruzado**, puertos del mismo tipo cuando no hay detección automática (Auto-MDI/MDIX).
+- El **par dividido** da continuidad 1-1…8-8 en un tester básico, pero los pines 3 y 6 no van por el mismo par trenzado: hay diafonía y el enlace falla.
+- Un tester o un multímetro **verifican** el mapa de cableado; **certificar** un enlace exige un certificador que mida NEXT, pérdida de inserción y retardo según TIA-568.2-D o ISO/IEC 11801.
 
-5. **5 Retos Prácticos Autocorregibles, Guía de Taller en 5 Fases y Generador de Informes**:
-   - Casos prácticos guiados (Cable Directo 568B, Directo 568A, Cruzado 568A↔568B, Diagnóstico de Avería con Multímetro y Cable Consola Rollover).
-   - Exportación de **Informe Técnico de Certificación** en texto (`.txt`), portapapeles o vista imprimible/PDF para entregar en prácticas de aula.
+<p align="center">
+  <img src="docs/capturas/03-par-dividido.webp" width="900" alt="Demostración de par dividido: el tester LED da continuidad directa en los ocho pines, pero el diagnóstico avisa de diafonía y de que no hay enlace">
+</p>
 
----
+## Desarrollo
 
-## 📋 Tabla de Referencia Rápida: EIA/TIA-568A vs EIA/TIA-568B
+Requisitos: Node.js 20 o superior.
 
-| Pin RJ-45 | Norma T568A | Norma T568B | Señal 10/100BASE-TX | Señal 1000BASE-T (Gigabit) | PoE Modo A / Modo B |
-| :---: | :--- | :--- | :--- | :--- | :--- |
-| **Pin 1** | 🟢⚪ Blanco-Verde | 🟠⚪ Blanco-Naranja | `TX+` (Transmisión +) | `BI_DA+` (Par A +) | Modo A: `DC+` |
-| **Pin 2** | 🟢 Verde | 🟠 Naranja | `TX-` (Transmisión -) | `BI_DA-` (Par A -) | Modo A: `DC+` |
-| **Pin 3** | 🟠⚪ Blanco-Naranja | 🟢⚪ Blanco-Verde | `RX+` (Recepción +) | `BI_DB+` (Par B +) | Modo A: `DC-` |
-| **Pin 4** | 🔵 Azul | 🔵 Azul | No usado | `BI_DC+` (Par C +) | Modo B: `DC+` |
-| **Pin 5** | 🔵⚪ Blanco-Azul | 🔵⚪ Blanco-Azul | No usado | `BI_DC-` (Par C -) | Modo B: `DC+` |
-| **Pin 6** | 🟠 Naranja | 🟢 Verde | `RX-` (Recepción -) | `BI_DB-` (Par B -) | Modo A: `DC-` |
-| **Pin 7** | 🟤⚪ Blanco-Marrón | 🟤⚪ Blanco-Marrón | No usado | `BI_DD+` (Par D +) | Modo B: `DC-` |
-| **Pin 8** | 🟤 Marrón | 🟤 Marrón | No usado | `BI_DD-` (Par D -) | Modo B: `DC-` |
+```bash
+git clone https://github.com/unfantasmaenelsistema/Constructor-Validador-Cables-RJ-45.git
+cd Constructor-Validador-Cables-RJ-45
+npm ci
+npm run dev      # http://localhost:3000
+npm test         # 22 tests de las normas, el análisis del cable y los retos
+npm run lint     # comprobación de tipos
+npm run build    # versión estática en dist/
+```
 
----
+Cada `push` a `main` pasa por el workflow [`deploy.yml`](.github/workflows/deploy.yml) (tipos, tests y build) y se publica en GitHub Pages. Los pull requests ejecutan las mismas comprobaciones sin publicar.
 
-## 🚀 Instalación y Ejecución en Local
+```text
+src/
+├── data/cableStandards.ts        Normas, análisis del cable (tipo, enlace, PoE, averías) y retos
+├── data/cableStandards.test.ts   Tests (Vitest), incluidos 5.000 conectores al azar
+├── App.tsx                       Mesa de trabajo, retos y progreso
+└── components/                   Conectores, mapa de trazado, tester LED, multímetro y referencia
+```
 
-1. **Clonar el repositorio**:
-   ```bash
-   git clone https://github.com/TU_USUARIO/constructor-validador-rj45.git
-   cd constructor-validador-rj45
-   ```
+## Novedades de la versión 2
 
-2. **Instalar dependencias**:
-   ```bash
-   npm install
-   ```
+- **Los retos se superaban con un clic**: los ejemplos de la cabecera, las plantillas de la referencia y los «Cargar T568B/T568A» de cada conector seguían activos durante un reto, y el reto 04 se resolvía con «Sanear todas las averías». Ahora están desactivados mientras hay un reto en curso.
+- **«Certificación»**: el informe decía «APTO / CERTIFICADO» con una simple prueba de continuidad. Ahora es un informe de verificación, con una nota que explica la diferencia, y el multímetro indica que NEXT y atenuación son valores simulados.
+- Un cable directo une puertos de distinto tipo (MDI ↔ MDI-X), no «equipos de distinta capa».
+- Los pines del conector se pueden usar con teclado y lector de pantalla; los retos superados y el tema se guardan entre visitas.
+- Fuera dependencias sin uso (Gemini, Express) y las capturas dibujadas en SVG; se arregla la instalación con npm, el diseño ya no se desborda en móvil ni hasta 1280 px, CSP en la build y licencia MIT.
 
-3. **Iniciar el servidor de desarrollo**:
-   ```bash
-   npm run dev
-   ```
-   Abre `http://localhost:3000` en tu navegador.
+## Créditos y licencia
 
-4. **Generar compilación de producción**:
-   ```bash
-   npm run build
-   ```
-   Los archivos estáticos optimizados con rutas relativas (`base: './'`) se generarán en la carpeta `dist/`.
-
----
-
-## 🌐 Cómo Desplegar en GitHub Pages (Automático)
-
-El proyecto ya incluye el flujo de trabajo oficial de GitHub Actions en `.github/workflows/deploy.yml` y configuración de rutas relativas en `vite.config.ts`.
-
-1. Sube este proyecto a un repositorio de GitHub (`main` o `master`).
-2. En tu repositorio de GitHub, entra en **Settings** → **Pages**.
-3. En la sección **Build and deployment** → **Source**, selecciona **GitHub Actions**.
-4. Al hacer `git push`, la acción compilará automáticamente la aplicación y la publicará en tu URL de GitHub Pages (`https://tu-usuario.github.io/nombre-repo/`).
-
----
-
-## 👤 Autor y Créditos
-
-Desarrollado para **[Un Fantasma en el Sistema](https://www.unfantasmaenelsistema.com/)**.  
-Visita **[www.unfantasmaenelsistema.com](https://www.unfantasmaenelsistema.com/)** para más recursos, herramientas técnicas, ciberseguridad, sistemas y redes.
+Desarrollado para **[Un Fantasma en el Sistema](https://www.unfantasmaenelsistema.com)**. Distribuido bajo licencia [MIT](LICENSE).
